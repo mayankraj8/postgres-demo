@@ -1,14 +1,14 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('postgres', 'postgres', 'prasanna', {
+const sequelize = new Sequelize('postgres', 'postgres', 'M@yank!23', {
     host: 'localhost',
     dialect: 'postgres'
 });
 
-const Movie = sequelize.define('Movie', {
+const movies = sequelize.define('movies', {
     movieId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true
     },
     title: {
@@ -21,7 +21,7 @@ const Movie = sequelize.define('Movie', {
     length: {
         type: DataTypes.STRING
     },
-    actors: {
+    actor: {
         type: DataTypes.STRING
 
     }
@@ -32,6 +32,6 @@ const Movie = sequelize.define('Movie', {
 });
 
 // `sequelize.define` also returns the model
-console.log(Movie === sequelize.models.Movie); // true
+console.log(movies === sequelize.models.movies); // true
 
-module.exports = Movie;
+module.exports = movies;

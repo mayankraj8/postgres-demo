@@ -3,23 +3,23 @@ const lodash = require("lodash");
 const { isEmpty } = require('lodash');
 const { Op } = require('sequelize');
 
-const { Movie } = require('../../model');
+const { movies } = require('../../model');
 
 const createNewMovie = async (req, res) => {
-    const { title, year, length, actors } = req.body;
+    const { movieId,title, year, length, actor } = req.body;
 
-    const movieId = `MV-${moment().unix()}`;
+    
     const movieRecord = {
         movieId,
         title,
         year,
         length,
-        actors
+        actor
     }
 
     
 
-    const result = await Movie.create(movieRecord);
+    const result = await movies.create(movieRecord);
     console.log(result.toJSON());
 
     if (!isEmpty(result)) {
@@ -29,10 +29,10 @@ const createNewMovie = async (req, res) => {
     }
 }
 const listMovies = async (req, res) => {
-    const movies = await Movie.findAll();
+    const moviesData = await movies.findAll();
 
     // To convert sequelize model to plain javascript
-    const formattedMovie = movies.map(r => r.get({ plain: true }));
+    const formattedMovie = moviesData.map(r => r.get({ plain: true }));
 
     if (!isEmpty(formattedMovie)) {
         res.send(formattedMovie);
